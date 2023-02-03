@@ -1,48 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
 import { appWindow } from '@tauri-apps/api/window'
-import { getVersion } from '@tauri-apps/api/app';
-import { supabase } from './Components/supabase';
 import { useState, useEffect } from 'react'
+import Update from './Components/update';
+
 
 function App() {
-  const [appVer, setappVer] = useState(true)
-  const [appUpdateChceck, setAppCheck] = useState(true)
-
-  /*useEffect(() => {
-    setAppCheck(false)
-    checkVersion()
-  })*/
-
-  
-
-
-  const checkVersion = async () => {
-      try {
-        setAppCheck(true);
-        const promGetVersion = Promise.resolve(getVersion());
-        promGetVersion.then((value) => {
-          setappVer(value);
-        })
-        let { data, error } = await supabase.from('launcher').select('version');
-        console.log(appVer === data[0].version);
-        //console.log(supabase.storage.from('launcher').getPublicUrl('0.1.1/launcher.zip').data.publicUrl)
-        /*console.log(data[0].version);
-        
-        console.log(appVersion);
-        console.log(error);*/
-      } catch (error) {
-        alert(error.message)
-      } finally {
-        setAppCheck(false);
-      }
-
-
-  }
-
-  checkVersion()
-
-
   return (
     <div className="App">
       <div data-tauri-drag-region class="titlebar">
@@ -70,6 +33,7 @@ function App() {
         </div>
       </div>
       <header className="App-header">
+        <Update/>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
