@@ -31,10 +31,6 @@ const Update = ({})=>{
   
     }
     checkVersion();
-
-    return(
-        <div>TEST</div>
-    )
 }
 
 export default Update
