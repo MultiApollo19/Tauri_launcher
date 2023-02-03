@@ -1,9 +1,9 @@
 import { getVersion } from '@tauri-apps/api/app';
 import { supabase } from './supabase';
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
 const Update = ({})=>{
     const [appVer, setappVer] = useState(true)
-    const [appUpdateChceck, setAppCheck] = useState(true)
+    //const [appUpdateChceck, setAppCheck] = useState(true)
   
     /*useEffect(() => {
       setAppCheck(false);
@@ -20,7 +20,7 @@ const Update = ({})=>{
           promGetVersion.then((value) => {
             setappVer(value);
           })
-          let { data, error } = await supabase.from('launcher').select('version');
+          let { data} = await supabase.from('launcher').select('version');
           console.log(appVer === data[0].version);
           //console.log(supabase.storage.from('launcher').getPublicUrl('0.1.1/launcher.zip').data.publicUrl)
           /*console.log(data[0].version);
