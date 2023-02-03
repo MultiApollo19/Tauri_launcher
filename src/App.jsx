@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import { appWindow } from '@tauri-apps/api/window'
-import { useState, useEffect } from 'react'
-import Update from './Components/update';
+//import { useState, useEffect } from 'react'
+//import Update from './Components/update';
 
 
 function App() {
