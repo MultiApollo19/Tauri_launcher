@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'Imprima';
 }
 
 .App-logo {
@@ -27,7 +28,42 @@
 .App-link {
   color: #61dafb;
 }
-
+.titlebar {
+  height: 30px;
+  background: black;
+  user-select: none;
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.titlebar-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 30px;
+}
+.titlebar-button:hover {
+  background: #7B7B7B;
+}
+#titlebar-close:hover{
+  background: red;
+}
+.titlebar-logo{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: auto;
+  margin-left: 18px;
+}
+#titlebar-title{
+  color:#A5A5A5;
+  opacity:60%;
+  font-size: 24px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

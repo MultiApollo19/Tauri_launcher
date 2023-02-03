@@ -1,0 +1,16 @@
+{
+    "tauri": {
+        "windows": [
+            {
+                "fullscreen": false,
+                "height": 720,
+                "resizable": true,
+                "title": "Launcher",
+                "width": 1280,
+                "visible": true,
+                "titleBarStyle": "Overlay",
+                "decorations": false
+            }
+        ]
+    }
+}
