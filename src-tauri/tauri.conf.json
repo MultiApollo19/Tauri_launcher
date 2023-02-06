@@ -49,6 +49,24 @@
         "all": false,
         "hide": false,
         "show": false
+      },
+      "fs": {
+        "copyFile": true,
+        "createDir": true,
+        "exists": true,
+        "readDir": true,
+        "readFile": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "writeFile": true,
+        "scope": ["$DESKTOP/*"]
+      },
+      "path": {
+        "all": true
+      },
+      "notification": {
+        "all": true
       }
     },
     "bundle": {
@@ -94,7 +112,7 @@
       {
         "fullscreen": false,
         "height": 720,
-        "resizable": true,
+        "resizable": false,
         "title": "Launcher",
         "width": 1280,
         "visible": true,

@@ -4,7 +4,7 @@
             {
                 "fullscreen": false,
                 "height": 720,
-                "resizable": true,
+                "resizable": false,
                 "title": "Launcher",
                 "width": 1280,
                 "visible": true,

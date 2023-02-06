@@ -1,7 +1,6 @@
 import './App.css';
-import { appWindow } from '@tauri-apps/api/window'
-//import { useState, useEffect } from 'react'
-//import Update from './Components/update';
+import { appWindow } from '@tauri-apps/api/window';
+import Update from './Components/update';
 
 
 function App() {
@@ -51,7 +50,7 @@ function App() {
           </div>
 
         </div>
-
+        <Update/>
       </div>
     </div>
 

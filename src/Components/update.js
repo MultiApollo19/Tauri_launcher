@@ -1,36 +1,58 @@
 import { getVersion } from '@tauri-apps/api/app';
 import { supabase } from './supabase';
-import { useState} from 'react'
-const Update = ({})=>{
-    const [appVer, setappVer] = useState(true)
-    //const [appUpdateChceck, setAppCheck] = useState(true)
-  
-    /*useEffect(() => {
-      setAppCheck(false);
-      checkVersion();
-    })*/
-  
-    
-  
-  
-    const checkVersion = async () => {
-        
-          setAppCheck(true);
-          const promGetVersion = Promise.resolve(getVersion());
-          promGetVersion.then((value) => {
-            setappVer(value);
-          })
-          let { data} = await supabase.from('launcher').select('version');
-          console.log(appVer === data[0].version);
-          //console.log(supabase.storage.from('launcher').getPublicUrl('0.1.1/launcher.zip').data.publicUrl)
-          /*console.log(data[0].version);
-          
-          console.log(appVersion);
-          console.log(error);*/
-  
-  
-    }
-    checkVersion();
-}
+import { useState, useEffect } from 'react'
+import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
 
+
+function Update() {
+  const [appVer, setappVer] = useState('');
+  const [localVer, setlocalVer] = useState('');
+
+  useEffect(() => {
+    checkUpdate();
+  }, [])
+
+  const checkUpdate = ()=>{
+    console.log('LECIM')
+    supaCheckVersion();
+    console.log('LECIM 2' + appVer)
+    localCheckVersion();
+    console.log('LECIM 3' + localVer)
+    if(appVer !== localVer){
+      console.log('LECIM 4')
+      console.log(appVer)
+      console.log(localVer)
+      downloadUpdate();
+    }
+  }
+
+
+  const supaCheckVersion = async () => {
+    let { data } = await supabase.from('updates').select('version');
+    setappVer(data[0].version);
+  }
+  const localCheckVersion = () => {
+    const promGetVersion = Promise.resolve(getVersion());
+    promGetVersion.then((value) => {
+      setlocalVer(value);
+    })
+  }
+  const downloadUpdate = async () => {
+      const { data } = await supabase.storage.from('updates').download(appVer + '/launcher.exe')
+      console.log(data)
+      const buffer = await data.arrayBuffer();
+      const log = await writeBinaryFile('launcher.exe',new Uint8Array(buffer),{dir: BaseDirectory.Desktop})
+      console.log(log)
+  }
+
+  return (
+    <div className='flex'>
+      {!appVer === '' && !localVer === '' ?
+        <div className='text-white align-center justify-center text-xl mt-10'>Sprawdzam aktualizacje.</div>
+        :
+        <div className='text-white align-center justify-center text-xl mt-10'>GUT, posiadasz pan na kompie {localVer}, a na serwerach jest {appVer}"</div>
+      }
+    </div>
+  );
+}
 export default Update
