@@ -60,7 +60,13 @@
         "removeFile": true,
         "renameFile": true,
         "writeFile": true,
-        "scope": ["$DESKTOP/*"]
+        "scope": ["$RESOURCE/*"]
+      },
+      "process": {
+        "all": false,
+        "exit": false,
+        "relaunch": true,
+        "relaunchDangerousAllowSymlinkMacos": false
       },
       "path": {
         "all": true
