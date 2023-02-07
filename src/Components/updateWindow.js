@@ -1,17 +1,19 @@
 import { getVersion } from '@tauri-apps/api/app';
 import { supabase } from './supabase';
 import { useState, useEffect } from 'react'
-import { writeBinaryFile, BaseDirectory,renameFile } from '@tauri-apps/api/fs';
+import { writeBinaryFile, BaseDirectory, renameFile } from '@tauri-apps/api/fs';
 import { relaunch } from '@tauri-apps/api/process';
 import { format, parseISO } from "date-fns"
 
 
 function UpdateWindow(props) {
+  const [isUpdating, setUpdating] = useState(false);
+
   const downloadUpdate = async () => {
     const { data } = await supabase.storage.from('updates').download(props.updateVer + '/launcher.exe');
     console.log(data);
     const buffer = await data.arrayBuffer();
-    const renameLog = await renameFile('launcher.exe', 'launcher_old.exe', {dir:BaseDirectory.Resource});
+    const renameLog = await renameFile('launcher.exe', 'launcher_old.exe', { dir: BaseDirectory.Resource });
     console.log(renameLog);
     const log = await writeBinaryFile('launcher.exe', new Uint8Array(buffer), { dir: BaseDirectory.Resource });
     console.log(log);
@@ -32,7 +34,10 @@ function UpdateWindow(props) {
           <img src='/Assets/Taskbar/icon_close.png' alt='Close' />
         </div>
       </div>
-      <div className='text-white text-2xl flex ml-4 mt-2 flex-row'>What's New?</div>
+      <div className='text-white text-2xl flex ml-4 mt-2 flex-row'>
+        <div >What's New?</div>
+        <div className='ml-24'>Update {props.updateChangelog.title}</div>
+      </div>
       <div className='text-[#545454] text-base flex ml-4 flex-row'>{format(parseISO(props.updateAt), "MMMM dd, yyyy")}</div>
       <img className='rounded-md ml-6 mt-2' src={props.updateChangelog.banner} alt='' />
       <div>
@@ -54,7 +59,16 @@ function UpdateWindow(props) {
         </ul>
       </div>
       <div className='flex flex-row-reverse'>
-        <div className='bg-[#2596FF] w-32 h-8 absolute mr-6 bottom-3 rounded-md text-white text-xl align-middle justify-center pt-1 hover:bg-[#67a9e6] hover:cursor-pointer ease-in-out duration-200' onClick={()=> downloadUpdate()}>Update!</div>
+        {!isUpdating ?
+
+          <div className='bg-[#2596FF] w-32 h-8 absolute mr-6 bottom-3 rounded-md text-white text-xl align-middle justify-center pt-1 hover:bg-[#67a9e6] hover:cursor-pointer ease-in-out duration-200' onClick={() => {
+            downloadUpdate()
+            setUpdating(true)
+          }
+          }>Update!</div>
+          :
+          <img className='absolute mr-6 bottom-3' src='/Assets/App/tail-spin.svg' alt='' />
+        }
       </div>
 
 

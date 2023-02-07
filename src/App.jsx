@@ -11,6 +11,8 @@ function App() {
   const [updateVer, setUpdateVer] = useState('');
   const [updateChangelog, setUpdateChangelog] = useState('');
   const [updateAt, setUpdateAt] = useState('');
+
+
   useEffect(()=>{
     cleanupUpdate();
   },[])

@@ -28,6 +28,7 @@ function Titlebar(props) {
 
     const supaMeta = async () => {
         let { data } = await supabase.from('updates').select();
+        console.log(data)
         setappVer(data[0].version);
         setChangelog(data[0].changelog);
         setAt(data[0].updated_at);
