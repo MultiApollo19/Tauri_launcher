@@ -4,6 +4,7 @@ import Titlebar from './Components/titlebar';
 import { useState, useEffect } from 'react'
 import UpdateWindow from './Components/updateWindow';
 import { removeFile, BaseDirectory } from '@tauri-apps/api/fs';
+import { supabase } from './Components/supabase';
 
 
 function App() {
@@ -18,7 +19,10 @@ function App() {
   },[])
   const cleanupUpdate = async () =>{
     await removeFile('launcher_old.exe', { dir: BaseDirectory.Resource });
+    
+
   }
+  
   return (
     <div className="App bg-[#0E111D]">
       {isUpdate ?
